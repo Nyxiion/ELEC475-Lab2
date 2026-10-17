@@ -1,0 +1,10 @@
+# Datasets are downloaded automatically by utils/dataset.py
+data/
+# Virtual environment and caches
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Model weights are large; keep them out of git
+checkpoints/
+*.pth
