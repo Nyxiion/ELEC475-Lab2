@@ -1,0 +1,72 @@
+========================================================================================
+ELEC 475: Lab 2 Training Engine
+Device        : mps (Apple Silicon GPU (MPS))
+Seed          : 42 (Python, NumPy, PyTorch seeded; deterministic cuDNN)
+Model         : LENET_MODERN (Norm: N/A)
+Dataset       : TINY_IMAGENET (Augmentation: False)
+Hyperparams   : Epochs=10, BatchSize=128, LR=0.001, Seed=42
+Early Stopping: Disabled
+========================================================================================
+
+Initializing DataLoaders...
+Train batches: 781 (100000 samples), Val batches: 79, Classes: 200
+============================================================
+Computational Complexity Profile: LENET_MODERN (bn)
+Input Tensor Shape   : (1, 3, 64, 64)
+------------------------------------------------------------
+Total Parameters     : 462,156 (0.4622 M)
+Trainable Parameters : 462,156
+Multiply-Accumulates : 4,608,480 (4.61 MMACs)
+Floating Point Ops   : 9,216,960 (9.22 MFLOPs)
+Weight Size (FP32)   : 1.76 MB
+============================================================
+
+Detailed Layer Specification:
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+LeNetModern                              [1, 200]                  --
+├─Sequential: 1-1                        [1, 16, 15, 15]           --
+│    └─Conv2d: 2-1                       [1, 6, 64, 64]            456
+│    └─ReLU: 2-2                         [1, 6, 64, 64]            --
+│    └─MaxPool2d: 2-3                    [1, 6, 31, 31]            --
+│    └─Conv2d: 2-4                       [1, 16, 31, 31]           2,416
+│    └─ReLU: 2-5                         [1, 16, 31, 31]           --
+│    └─MaxPool2d: 2-6                    [1, 16, 15, 15]           --
+├─Sequential: 1-2                        [1, 200]                  --
+│    └─Linear: 2-7                       [1, 120]                  432,120
+│    └─ReLU: 2-8                         [1, 120]                  --
+│    └─Linear: 2-9                       [1, 84]                   10,164
+│    └─ReLU: 2-10                        [1, 84]                   --
+│    └─Linear: 2-11                      [1, 200]                  17,000
+==========================================================================================
+Total params: 462,156
+Trainable params: 462,156
+Non-trainable params: 0
+Total mult-adds (M): 4.65
+==========================================================================================
+Input size (MB): 0.05
+Forward/backward pass size (MB): 0.32
+Params size (MB): 1.85
+Estimated Total Size (MB): 2.22
+==========================================================================================
+
+==============================================================================================
+ Epoch  | Train Loss  | Train Acc (%)  |  Val Loss  | Val Acc (%)  | Val F1 (%)  | Time (s)  | Throughput
+----------------------------------------------------------------------------------------------
+   1    |   4.6711    |      5.82      |   4.1927   |    11.21     |    8.76     |   25.77   |  3880.1  s/s
+   2    |   3.9879    |     13.97      |   3.8636   |    15.14     |    12.67    |   9.11    | 10977.1  s/s
+   3    |   3.7608    |     17.11      |   3.7457   |    17.33     |    14.81    |   8.93    | 11202.4  s/s
+   4    |   3.6245    |     19.46      |   3.7087   |    18.41     |    15.83    |   10.61   |  9423.6  s/s
+   5    |   3.5220    |     21.05      |   3.6633   |    19.21     |    17.13    |   15.10   |  6624.5  s/s
+   6    |   3.4462    |     22.28      |   3.6288   |    19.46     |    17.55    |   18.34   |  5451.2  s/s
+   7    |   3.3736    |     23.50      |   3.6093   |    20.13     |    18.53    |   23.87   |  4189.8  s/s
+   8    |   3.3223    |     24.39      |   3.6042   |    20.67     |    18.68    |   22.30   |  4484.6  s/s
+   9    |   3.2680    |     25.28      |   3.6100   |    20.47     |    18.20    |   11.04   |  9054.3  s/s
+  10    |   3.2202    |     26.05      |   3.6299   |    20.44     |    18.38    |   19.30   |  5182.6  s/s
+==============================================================================================
+Training completed in 164.37s.
+Best Val Accuracy: 20.67% | Best Val Macro F1: 18.68%
+Model Complexity : 0.462M Parameters | 9.22M FLOPs
+Per-epoch history saved to: results/loss_tiny_lenet_modern.json
+Training curves successfully saved to: plots/loss_tiny_lenet_modern.png
