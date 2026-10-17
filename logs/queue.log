@@ -1,0 +1,33 @@
+===== stage: norm =====
+[skip] results/loss_alexnet_none.json exists
+[skip] results/loss_alexnet_lrn.json exists
+[skip] results/loss_alexnet_bn.json exists
+===== stage: aug =====
+[run ] python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --batch-size 128 --no-augment --save-model checkpoints/alexnet_no_aug.pth --plot-file plots/loss_no_aug.png --history-file results/loss_no_aug.json   (log: logs/loss_no_aug.log)
+[run ] python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --batch-size 128 --save-model checkpoints/alexnet_with_aug.pth --plot-file plots/loss_with_aug.png --history-file results/loss_with_aug.json   (log: logs/loss_with_aug.log)
+===== stage: tiny =====
+[run ] python train.py --model alexnet --norm bn --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --save-model checkpoints/alexnet_tiny_imagenet.pth --plot-file plots/loss_tiny_imagenet.png --history-file results/loss_tiny_imagenet.json   (log: logs/loss_tiny_imagenet.log)
+[run ] python train.py --model lenet --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_lenet.png --history-file results/loss_tiny_lenet.json   (log: logs/loss_tiny_lenet.log)
+[run ] python train.py --model lenet_modern --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_lenet_modern.png --history-file results/loss_tiny_lenet_modern.json   (log: logs/loss_tiny_lenet_modern.log)
+[run ] python train.py --model alexnet --norm none --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_none.png --history-file results/loss_tiny_alexnet_none.json   (log: logs/loss_tiny_alexnet_none.log)
+[run ] python train.py --model alexnet --norm lrn --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_lrn.png --history-file results/loss_tiny_alexnet_lrn.json   (log: logs/loss_tiny_alexnet_lrn.log)
+[run ] python train.py --model alexnet --norm bn --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_bn.png --history-file results/loss_tiny_alexnet_bn.json   (log: logs/loss_tiny_alexnet_bn.log)
+[run ] python train.py --model zoo_alexnet --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_zoo_alexnet.png --history-file results/loss_tiny_zoo_alexnet.json   (log: logs/loss_tiny_zoo_alexnet.log)
+===== stage: zoo =====
+[run ] python train.py --model zoo_alexnet --dataset cifar10 --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_zoo_alexnet.png --history-file results/loss_zoo_alexnet.json   (log: logs/loss_zoo_alexnet.log)
+===== stage: lenet =====
+[run ] python train.py --model lenet --dataset cifar10 --epochs 5 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_lenet_mps.png --history-file results/loss_lenet_mps.json   (log: logs/loss_lenet_mps.log)
+[run ] python train.py --model lenet_modern --dataset cifar10 --epochs 5 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_lenet_modern_mps.png --history-file results/loss_lenet_modern_mps.json   (log: logs/loss_lenet_modern_mps.log)
+===== stage: seeds =====
+[run ] python train.py --model alexnet --norm none --dataset cifar10 --epochs 10 --seed 123 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_none_s123.png --history-file results/seeds/alexnet_none_s123.json   (log: logs/alexnet_none_s123.log)
+[run ] python train.py --model alexnet --norm lrn --dataset cifar10 --epochs 10 --seed 123 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_lrn_s123.png --history-file results/seeds/alexnet_lrn_s123.json   (log: logs/alexnet_lrn_s123.log)
+[run ] python train.py --model alexnet --norm bn --dataset cifar10 --epochs 10 --seed 123 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_bn_s123.png --history-file results/seeds/alexnet_bn_s123.json   (log: logs/alexnet_bn_s123.log)
+[run ] python train.py --model alexnet --norm none --dataset cifar10 --epochs 10 --seed 999 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_none_s999.png --history-file results/seeds/alexnet_none_s999.json   (log: logs/alexnet_none_s999.log)
+[run ] python train.py --model alexnet --norm lrn --dataset cifar10 --epochs 10 --seed 999 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_lrn_s999.png --history-file results/seeds/alexnet_lrn_s999.json   (log: logs/alexnet_lrn_s999.log)
+[run ] python train.py --model alexnet --norm bn --dataset cifar10 --epochs 10 --seed 999 --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_bn_s999.png --history-file results/seeds/alexnet_bn_s999.json   (log: logs/alexnet_bn_s999.log)
+./run_postlab.sh: line 77: t_lr1e-4.json: command not found
+./run_postlab.sh: line 79: syntax error near unexpected token `}'
+./run_postlab.sh: line 79: `}'
+===== stage: zoofix =====
+[run ] python train.py --model zoo_alexnet --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --lr 1e-4 --plot-file plots/loss_tiny_zoo_alexnet_lr1e-4.png --history-file results/loss_tiny_zoo_alexnet_lr1e-4.json   (log: logs/loss_tiny_zoo_alexnet_lr1e-4.log)
+===== all requested stages done =====

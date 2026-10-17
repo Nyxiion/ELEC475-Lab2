@@ -1,0 +1,9 @@
+Device        : mps (Apple Silicon GPU (MPS))
+| Model Architecture          | Params (M) | MACs (M) | FLOPs (M) | Latency (ms) | Throughput (img/s) |
+| ----------------------------|------------|----------|-----------|--------------|------------------- |
+| 1. LeNet-5 (Base)           | 0.338      | 3.59     | 7.17      | 0.54         | 1866.1             |
+| 2. LeNet-Modern (ReLU+Pool) | 0.446      | 4.59     | 9.19      | 0.57         | 1754.1             |
+| 3. AlexNet-64 (None)        | 6.609      | 218.35   | 436.70    | 1.14         | 880.3              |
+| 4. AlexNet-64 (LRN)         | 6.609      | 218.35   | 436.70    | 1.18         | 850.2              |
+| 5. AlexNet-64 (BatchNorm)   | 6.611      | 218.98   | 437.97    | 2.08         | 480.9              |
+| 6. Torchvision Zoo AlexNet  | 57.045     | 94.10    | 188.20    | 2.45         | 407.7              |
