@@ -1,0 +1,58 @@
+# ELEC 475 Lab 2 - exact commands used (run from lab2_template/ with the venv active)
+# Hardware: Apple M3 Pro. train.py --device defaults to 'auto' (CUDA > Apple MPS > CPU).
+# Every train.py run: batch size 128, Adam lr 1e-3 (weight decay 1e-4) unless --lr is given.
+# Every train.py run with --plot-file also writes results/<plot name>.json (per-epoch history).
+
+## Pre-lab
+python utils/eda.py --dataset both
+python prelab_verify.py
+python demo_transforms.py
+
+## In-lab (CPU, before MPS support was added; transforms.py was still a stub, so no augmentation was applied)
+python -m models.lenet
+python -m models.lenet_modern
+python train.py --model lenet --dataset cifar10 --epochs 5 --batch-size 128 --seed 42 --save-model checkpoints/lenet.pth --plot-file plots/loss_lenet.png
+python train.py --model lenet_modern --dataset cifar10 --epochs 5 --batch-size 128 --seed 42 --save-model checkpoints/lenet_modern.pth --plot-file plots/loss_lenet_modern.png
+cp checkpoints/lenet.pth checkpoints/lenet_baseline.pth
+
+## Post-lab: everything below is what ./run_postlab.sh runs (resumable; stages: norm aug tiny zoo lenet seeds zoofix)
+caffeinate -i ./run_postlab.sh
+
+# Step 1: architecture check
+python -m models.alexnet
+
+# Step 2: normalization study (no augmentation so only the norm layer differs)
+python train.py --model alexnet --norm none --dataset cifar10 --epochs 10 --seed 42 --batch-size 128 --no-augment --save-model checkpoints/alexnet_none.pth --plot-file plots/loss_alexnet_none.png
+python train.py --model alexnet --norm lrn  --dataset cifar10 --epochs 10 --seed 42 --batch-size 128 --no-augment --save-model checkpoints/alexnet_lrn.pth  --plot-file plots/loss_alexnet_lrn.png
+python train.py --model alexnet --norm bn   --dataset cifar10 --epochs 10 --seed 42 --batch-size 128 --no-augment --save-model checkpoints/alexnet_bn.pth   --plot-file plots/loss_alexnet_bn.png
+
+# Step 3: augmentation study (15 epochs)
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --batch-size 128 --no-augment --save-model checkpoints/alexnet_no_aug.pth --plot-file plots/loss_no_aug.png
+python train.py --model alexnet --norm bn --dataset cifar10 --epochs 15 --seed 42 --batch-size 128 --save-model checkpoints/alexnet_with_aug.pth --plot-file plots/loss_with_aug.png
+
+# Step 4: Tiny ImageNet (10 epochs; Step 4 run first, then the rest of Table 7.3b's Tiny column)
+python train.py --model alexnet --norm bn --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --save-model checkpoints/alexnet_tiny_imagenet.pth --plot-file plots/loss_tiny_imagenet.png
+python train.py --model lenet        --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_lenet.png
+python train.py --model lenet_modern --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_lenet_modern.png
+python train.py --model alexnet --norm none --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_none.png
+python train.py --model alexnet --norm lrn  --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_lrn.png
+python train.py --model alexnet --norm bn   --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_alexnet_bn.png
+python train.py --model zoo_alexnet --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_tiny_zoo_alexnet.png
+python train.py --model zoo_alexnet --dataset tiny_imagenet --epochs 10 --seed 42 --batch-size 128 --no-augment --lr 1e-4 --plot-file plots/loss_tiny_zoo_alexnet_lr1e-4.png
+
+# Table 7.3 row 7 on CIFAR-10
+python train.py --model zoo_alexnet --dataset cifar10 --epochs 10 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_zoo_alexnet.png
+
+# LeNets re-timed on MPS so all Table 7.3a epoch times share one device
+python train.py --model lenet        --dataset cifar10 --epochs 5 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_lenet_mps.png
+python train.py --model lenet_modern --dataset cifar10 --epochs 5 --seed 42 --batch-size 128 --no-augment --plot-file plots/loss_lenet_modern_mps.png
+
+# Multi-seed Mean +/- Std for the normalization study (seed 42 = Step 2 runs above)
+for s in 123 999; do for n in none lrn bn; do
+  python train.py --model alexnet --norm $n --dataset cifar10 --epochs 10 --seed $s --batch-size 128 --no-augment --plot-file plots/seeds/alexnet_${n}_s$s.png --history-file results/seeds/alexnet_${n}_s$s.json
+done; done
+
+# Step 5: complexity benchmark and ablation plot
+python compare_models.py --dataset cifar10 --device mps --reps 200
+python compare_models.py --dataset cifar10 --device cpu --reps 200
+python -m utils.visualization --plot-ablation
