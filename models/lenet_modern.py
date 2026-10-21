@@ -33,7 +33,7 @@ class LeNetModern(nn.Module):
         self.in_channels = in_channels
 
         # ======================================================================
-        # TODO [IN-LAB STEP 4]: Implement the Modernized Feature Extractor
+        # DONE [IN-LAB STEP 4]: Implement the Modernized Feature Extractor
         #
         # Requirements:
         #   1. Conv1: in_channels=in_channels, out_channels=6, kernel_size=5, stride=1, padding=2
@@ -53,7 +53,7 @@ class LeNetModern(nn.Module):
         )
 
         # ======================================================================
-        # TODO [IN-LAB STEP 4]: Implement the Modernized Classifier Head
+        # DONE [IN-LAB STEP 4]: Implement the Modernized Classifier Head
         #
         # Requirements:
         #   1. FC1: in_features = 16 * 15 * 15 (3,600), out_features = 120
@@ -72,7 +72,7 @@ class LeNetModern(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # ======================================================================
-        # TODO [IN-LAB STEP 4]: Implement Forward Pass
+        # DONE [IN-LAB STEP 4]: Implement Forward Pass
         # ======================================================================
         x = self.feature_extractor(x)
         x = torch.flatten(x, start_dim=1)   # (B, 3600)

@@ -26,7 +26,7 @@ def get_train_transforms(dataset: str = "cifar10", augment: bool = True, target_
 
     if augment:
         # ======================================================================
-        # TODO [POST-LAB STEP 3]: Implement PyTorch Data Augmentation Pipeline
+        # DONE [POST-LAB STEP 3]: Implement PyTorch Data Augmentation Pipeline
         #
         # Add the following pure PyTorch GPU-friendly transformations:
         #   1. transforms.RandomCrop(target_size, padding=4, padding_mode="reflect")

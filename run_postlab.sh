@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ELEC 475 Lab 2 - runs every post-lab experiment in order.
 # Resumable: a run is skipped if its results/*.json history already exists.
-# Usage (from lab2_template/, venv active):   caffeinate -i ./run_postlab.sh [stage ...]
+# Usage (from the project root, venv active):   caffeinate -i ./run_postlab.sh [stage ...]
 # Stages: norm aug tiny zoo lenet seeds zoofix   (default: all, in that order)
 set -u
 mkdir -p logs results
