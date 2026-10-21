@@ -1,8 +1,6 @@
 # ELEC 475: Lab 2 Starter Template
 ## From LeNet-5 to AlexNet: An Architectural & Empirical Evolution
 
-Welcome to ELEC 475 Lab 2! This repository contains the starter code and scaffolding for both your **In-Lab (2-hour milestone)** and **Post-Lab (due Oct 22)** assignments.
-
 ### Directory Structure
 
 ```text
@@ -85,4 +83,3 @@ python prelab_verify.py
   ```powershell
   python train.py --model zoo_alexnet --dataset cifar10 --epochs 15 --seed 42 --early-stopping --save-model checkpoints/zoo_alexnet.pth
   ```
-- Author your formal report per instructions in [`POSTLAB.md`](../POSTLAB.md) and submit to OnQ!
