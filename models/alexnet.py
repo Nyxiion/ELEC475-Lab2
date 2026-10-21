@@ -55,7 +55,7 @@ class AlexNet64(nn.Module):
                 raise ValueError(f"Unknown norm_type '{norm_type}'. Choose from 'none', 'lrn', 'bn'.")
 
         # ======================================================================
-        # TODO [POST-LAB STEP 1 & 2]: Implement the 5-Stage AlexNet Feature Extractor
+        # DONE [POST-LAB STEP 1 & 2]: Implement the 5-Stage AlexNet Feature Extractor
         #
         # Build self.features using nn.Sequential or a list of layers:
         #   Stage 1: Conv2d(in_channels, 64, kernel_size=5, stride=2, padding=2)
@@ -114,7 +114,7 @@ class AlexNet64(nn.Module):
         )
 
         # ======================================================================
-        # TODO [POST-LAB STEP 1]: Implement the Dense Classifier with Dropout
+        # DONE [POST-LAB STEP 1]: Implement the Dense Classifier with Dropout
         #
         # Requirements:
         #   1. nn.Dropout(p=0.5)
@@ -137,7 +137,7 @@ class AlexNet64(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # ======================================================================
-        # TODO [POST-LAB STEP 1]: Implement the Forward Pass
+        # DONE [POST-LAB STEP 1]: Implement the Forward Pass
         # 1. Pass input x through self.features: x = self.features(x)
         # 2. Flatten feature maps: x = torch.flatten(x, start_dim=1)
         # 3. Pass flattened vector through self.classifier: logits = self.classifier(x)

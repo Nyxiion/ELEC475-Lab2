@@ -31,7 +31,7 @@ class LeNet5(nn.Module):
         self.in_channels = in_channels
 
         # ======================================================================
-        # TODO [IN-LAB STEP 2]: Implement the LeNet-5 Feature Extractor
+        # DONE [IN-LAB STEP 2]: Implement the LeNet-5 Feature Extractor
         #
         # Requirements:
         #   1. Conv1: in_channels=in_channels, out_channels=6, kernel_size=5, stride=1, padding=0
@@ -51,7 +51,7 @@ class LeNet5(nn.Module):
         )
 
         # ======================================================================
-        # TODO [IN-LAB STEP 2]: Implement the LeNet-5 Dense Classifier Head
+        # DONE [IN-LAB STEP 2]: Implement the LeNet-5 Dense Classifier Head
         #
         # Requirements:
         #   1. FC1: in_features = 16 * 13 * 13 (2,704), out_features = 120
@@ -70,7 +70,7 @@ class LeNet5(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # ======================================================================
-        # TODO [IN-LAB STEP 2]: Implement the Forward Pass
+        # DONE [IN-LAB STEP 2]: Implement the Forward Pass
         #
         # 1. Pass input x through self.feature_extractor
         # 2. Flatten spatial features using torch.flatten(x, start_dim=1)

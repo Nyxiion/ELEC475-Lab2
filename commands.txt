@@ -1,4 +1,4 @@
-# ELEC 475 Lab 2 - exact commands used (run from lab2_template/ with the venv active)
+# ELEC 475 Lab 2 - exact commands used (run from the project root with the venv active)
 # Hardware: Apple M3 Pro. train.py --device defaults to 'auto' (CUDA > Apple MPS > CPU).
 # Every train.py run: batch size 128, Adam lr 1e-3 (weight decay 1e-4) unless --lr is given.
 # Every train.py run with --plot-file also writes results/<plot name>.json (per-epoch history).
